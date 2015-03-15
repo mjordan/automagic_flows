@@ -1,0 +1,48 @@
+<?xml version='1.0' encoding='UTF-8' standalone='yes' ?>
+<!-- Automagic (http://automagic4android.com/) flow that responds to texts when
+     your phone is connected to a Bluetooth device (like your car's sound system)
+     telling the sender that you can't reply to their text.
+-->
+<data version="1.26.0">
+  <trigger type="sms_receive">
+    <useDefaultName>true</useDefaultName>
+    <name>SMS Received: All</name>
+    <enabled>true</enabled>
+    <allSender>true</allSender>
+    <senders></senders>
+    <containedString></containedString>
+    <abortBroadcast>false</abortBroadcast>
+  </trigger>
+  <condition type="bluetooth_device_connected">
+    <useDefaultName>true</useDefaultName>
+    <name>Bluetooth Device Connected: KIA MOTORS</name>
+    <any>false</any>
+    <deviceAddress>08:76:95:87:51:52</deviceAddress>
+    <deviceName>KIA MOTORS</deviceName>
+  </condition>
+  <action type="send_sms">
+    <useDefaultName>true</useDefaultName>
+    <name>Send SMS: to {sms_sender} 'I am driving and can't read your text. Please phone me if urgent.' (10 in 12h)</name>
+    <receiver>{sms_sender}</receiver>
+    <message>I am driving and can't read your text. Please phone me if urgent.</message>
+    <truncate>true</truncate>
+    <limited>true</limited>
+    <maxCount>10</maxCount>
+    <duration>43200000</duration>
+    <storeSMS>false</storeSMS>
+  </action>
+  <flow type="flow">
+    <name>Respond to text messages while in car</name>
+    <enabled>true</enabled>
+    <lastExecutionStartTime>1426441555405</lastExecutionStartTime>
+    <lastExecutionEndTime>1426441555732</lastExecutionEndTime>
+    <executionPolicy>PARALLEL</executionPolicy>
+    <triggercontainer id="t1" x="70.0" y="52.5">
+      <trigger>SMS Received: All</trigger>
+    </triggercontainer>
+    <actioncontainer id="t2" x="35.0" y="717.5">Send SMS: to {sms_sender} 'I am driving and can't read your text. Please phone me if urgent.' (10 in 12h)</actioncontainer>
+    <conditioncontainer id="t3" x="35.000004" y="262.50003">Bluetooth Device Connected: KIA MOTORS</conditioncontainer>
+    <connection from="t1" to="t3" type="NORMAL" sourcePosition="SOUTH" targetPosition="NORTH" />
+    <connection from="t3" to="t2" type="TRUE" sourcePosition="SOUTH" targetPosition="NORTH" />
+  </flow>
+</data>
