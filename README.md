@@ -1,2 +1,3 @@
-# automagic_flows
-Collection of Automagic Flows that I use.
+# Automagic Flows
+
+This is a collection of [Automagic](http://automagic4android.com/) Flows that I use.
