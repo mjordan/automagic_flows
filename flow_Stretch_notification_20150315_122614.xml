@@ -1,0 +1,63 @@
+<?xml version='1.0' encoding='UTF-8' standalone='yes' ?>
+<!-- Automagic (http://automagic4android.com/) flow that sends you email every
+     hour when connected to a specific wifi network to remind you to stretch.
+-->
+<data version="1.26.0">
+  <trigger type="periodic_timer">
+    <useDefaultName>true</useDefaultName>
+    <name>Periodic Timer: every 1h, Mon,Tue,Wed,Thu,Fri 8:00 am - 6:00 pm</name>
+    <enabled>true</enabled>
+    <frequency>3600000</frequency>
+    <wakeDevice>true</wakeDevice>
+    <fixedTimes>false</fixedTimes>
+    <limitTimeRange>true</limitTimeRange>
+    <weekday>Mon</weekday>
+    <weekday>Tue</weekday>
+    <weekday>Wed</weekday>
+    <weekday>Thu</weekday>
+    <weekday>Fri</weekday>
+    <hourFrom>8</hourFrom>
+    <minuteFrom>0</minuteFrom>
+    <hourTo>18</hourTo>
+    <minuteTo>0</minuteTo>
+  </trigger>
+  <trigger type="wifi_connected">
+    <useDefaultName>true</useDefaultName>
+    <name>WiFi Connected: eduroam</name>
+    <enabled>true</enabled>
+    <all>false</all>
+    <ssidList>eduroam</ssidList>
+  </trigger>
+  <condition type="wifi_connected">
+    <useDefaultName>true</useDefaultName>
+    <name>WiFi Connected: Somenetwork</name>
+    <all>false</all>
+    <ssidList>Somenetwork</ssidList>
+  </condition>
+  <action type="mail_gmail">
+    <useDefaultName>true</useDefaultName>
+    <name>Mail with Gmail: Stretch to you@example.com</name>
+    <oauth>false</oauth>
+    <deviceAccount></deviceAccount>
+    <mailAccount>youraccount@gmail.com</mailAccount>
+    <receiver>you@example.com</receiver>
+    <subject>Stretch</subject>
+    <body>Get up and stretch your eyes.</body>
+    <attachments></attachments>
+  </action>
+  <flow type="flow">
+    <name>Stretch notification</name>
+    <enabled>true</enabled>
+    <lastExecutionStartTime>1426294800447</lastExecutionStartTime>
+    <lastExecutionEndTime>1426294800474</lastExecutionEndTime>
+    <executionPolicy>PARALLEL</executionPolicy>
+    <triggercontainer id="t1" x="70.0" y="-52.5">
+      <trigger>WiFi Connected: eduroam</trigger>
+      <trigger>Periodic Timer: every 1h, Mon,Tue,Wed,Thu,Fri 8:00 am - 6:00 pm</trigger>
+    </triggercontainer>
+    <actioncontainer id="t2" x="70.0" y="437.5">Mail with Gmail: Stretch to you@example.com</actioncontainer>
+    <conditioncontainer id="t3" x="70.0" y="192.5">WiFi Connected: Somenetwork</conditioncontainer>
+    <connection from="t1" to="t3" type="NORMAL" sourcePosition="SOUTH" targetPosition="NORTH" />
+    <connection from="t3" to="t2" type="TRUE" sourcePosition="SOUTH" targetPosition="NORTH" />
+  </flow>
+</data>
