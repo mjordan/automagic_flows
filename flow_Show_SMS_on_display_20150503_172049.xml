@@ -1,0 +1,41 @@
+<?xml version='1.0' encoding='UTF-8' standalone='yes' ?>
+<data version="1.26.0">
+  <trigger type="sms_receive">
+    <useDefaultName>true</useDefaultName>
+    <name>SMS Received: All</name>
+    <enabled>true</enabled>
+    <allSender>true</allSender>
+    <senders></senders>
+    <containedString></containedString>
+    <abortBroadcast>false</abortBroadcast>
+  </trigger>
+  <action type="message_dialog">
+    <useDefaultName>true</useDefaultName>
+    <name>Message Dialog: Text from {sms_sender} {sms_text}</name>
+    <title>Text from {sms_sender}</title>
+    <message>{sms_text}</message>
+    <timeoutEnabled>true</timeoutEnabled>
+    <timeout>60000</timeout>
+  </action>
+  <action type="turn_screen_on">
+    <useDefaultName>true</useDefaultName>
+    <name>Turn Screen On: Dim for 10s</name>
+    <bright>false</bright>
+    <duration>10s</duration>
+    <resetUserActivityTimer>true</resetUserActivityTimer>
+  </action>
+  <flow type="flow">
+    <name>Show SMS on display</name>
+    <enabled>true</enabled>
+    <lastExecutionStartTime>1416612807925</lastExecutionStartTime>
+    <lastExecutionEndTime>1416612807925</lastExecutionEndTime>
+    <executionPolicy>PARALLEL</executionPolicy>
+    <triggercontainer id="t1" x="105.0" y="-52.5">
+      <trigger>SMS Received: All</trigger>
+    </triggercontainer>
+    <actioncontainer id="t2" x="105.0" y="227.5">Turn Screen On: Dim for 10s</actioncontainer>
+    <actioncontainer id="t3" x="105.0" y="542.5">Message Dialog: Text from {sms_sender} {sms_text}</actioncontainer>
+    <connection from="t1" to="t2" type="NORMAL" sourcePosition="SOUTH" targetPosition="NORTH" />
+    <connection from="t2" to="t3" type="NORMAL" sourcePosition="SOUTH" targetPosition="NORTH" />
+  </flow>
+</data>
